@@ -9,6 +9,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final feedController = TextEditingController();
+  List feeds = [
+    "http://www.fatosystem.com.br/",
+    "https://github.com/luicesar/flutter_avancado/"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +45,29 @@ class _HomePageState extends State<HomePage> {
                   textColor: Colors.white,
                   onPressed: () {
                     if (this._formKey.currentState.validate()) {
-                      print(feedController.text);
-                      feedController.text = '';
+                      setState(() {
+                        feeds.add(feedController.text);
+                        feedController.text = '';
+                      });
                     }
                   },
-                )
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: feeds.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(feeds[index]),
+                        leading: index % 2 == 0
+                            ? Icon(Icons.rss_feed)
+                            : Icon(Icons.school),
+                        onTap: () {
+                          print(index.toString());
+                        },
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
