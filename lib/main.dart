@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './pages/homePage.dart';
+import './pages/articles_page.dart';
+import './pages/page3_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/article': (context) => ArticlesPage(),
+        '/page3': (context) => Page3Page(),
+      },
     );
   }
 }

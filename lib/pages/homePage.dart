@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './articles_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,10 +17,7 @@ class _HomePageState extends State<HomePage> {
         child: RaisedButton(
           child: Text('Avançar'),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ArticlesPage()),
-            );
+            Navigator.pushNamed(context, '/article');
           },
         ),
       ),
