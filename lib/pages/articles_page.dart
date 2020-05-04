@@ -39,7 +39,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
                       title: 'Não foi possível carregar ...',
                       icon: Icons.error);
                 }
-                return messageTemplate(title: 'Carregado', icon: Icons.done);
+                return listArticles(snapshot.data);
             }
           },
         ));
@@ -54,5 +54,25 @@ class _ArticlesPageState extends State<ArticlesPage> {
           Icon(icon, size: 50),
           Text(title),
         ]));
+  }
+
+  listArticles(List articles) {
+    return Column(
+      children: <Widget>[
+        Expanded(
+            child: ListView.builder(
+                itemCount: articles.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(articles[index]['title']),
+                    subtitle: Text(articles[index]['link']),
+                    leading: Icon(Icons.open_in_browser),
+                    onTap: () {
+                      print(articles[index]['link']);
+                    },
+                  );
+                }))
+      ],
+    );
   }
 }
