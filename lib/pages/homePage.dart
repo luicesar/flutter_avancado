@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './articles_page.dart';
+import '../data/saveLocal.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,13 +10,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final feedController = TextEditingController();
-  List feeds = [
-    "http://www.fatosystem.com.br/",
-    "https://github.com/luicesar/flutter_avancado/"
-  ];
+  List feeds = [];
 
   @override
   Widget build(BuildContext context) {
+    SaveLocal persistence = new SaveLocal(feedList: feeds);
+
+    persistence.read().then((data) {
+      setState(() {
+        feeds = data;
+      });
+    });
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Meus feeds'),
@@ -47,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                     if (this._formKey.currentState.validate()) {
                       setState(() {
                         feeds.add(feedController.text);
+                        persistence.save(feeds);
                         feedController.text = '';
                       });
                     }
